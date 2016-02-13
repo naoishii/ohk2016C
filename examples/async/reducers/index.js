@@ -8,14 +8,15 @@ import {
 
 
 
-function position(state = {x: 0, y: 0}, action) {
-  console.log(67868)
+function position(state = {x: 0, y: 0, angle: 0, door: 0}, action) {
   switch (action.type) {
     case UPDATE_POSITION:
       console.log(action.pos);
     return Object.assign({}, state, {
       x: action.pos.x,
-      y: action.pos.y
+      y: action.pos.y,
+      angle: action.pos.angle,
+      door: action.pos.door,
     });
     default:
       return state;

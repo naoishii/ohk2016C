@@ -8,8 +8,7 @@ export const INVALIDATE_REDDIT = 'INVALIDATE_REDDIT'
 
 export const UPDATE_POSITION = 'UPDATE_POSITION'
 
-
-export function updatePosition(pos = {x: 0, y: 0}) {
+export function updatePosition(pos = {x: 0, y: 0, angle: 0, door: 0}) {
   return {
     type: UPDATE_POSITION,
     pos
