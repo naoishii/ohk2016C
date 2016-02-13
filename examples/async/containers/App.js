@@ -10,6 +10,7 @@ class App extends Component {
     super(props)
     this.handleChange = this.handleChange.bind(this)
     this.handleRefreshClick = this.handleRefreshClick.bind(this)
+    this.handleUpdate = this.handleUpdate.bind(this)
   }
 
   componentDidMount() {
@@ -28,6 +29,10 @@ class App extends Component {
     this.props.dispatch(selectReddit(nextReddit))
   }
 
+  handleUpdate(pos) {
+    this.props.dispatch(updatePosition(pos));
+  }
+
   handleRefreshClick(e) {
     e.preventDefault()
 
@@ -43,7 +48,7 @@ class App extends Component {
     console.log(this.props);
     return (
       <div>
-        <Stage { ...this.props } />
+        <Stage { ...this.props } handleUpdate={ this.handleUpdate }/>
       </div>
     )
   }
