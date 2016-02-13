@@ -1,8 +1,35 @@
 import { combineReducers } from 'redux'
 import {
   SELECT_REDDIT, INVALIDATE_REDDIT,
-  REQUEST_POSTS, RECEIVE_POSTS
+  REQUEST_POSTS, RECEIVE_POSTS,
+  UPDATE_POSITION
 } from '../actions'
+
+
+
+
+function position(state = {x: 0, y: 0}, action) {
+  console.log(67868)
+  switch (action.type) {
+    case UPDATE_POSITION:
+      console.log(action.pos);
+    return Object.assign({}, state, {
+      x: action.pos.x,
+      y: action.pos.y
+    });
+    default:
+      return state;
+  }
+}
+
+
+
+
+
+
+
+
+
 
 function selectedReddit(state = 'reactjs', action) {
   switch (action.type) {
@@ -16,7 +43,8 @@ function selectedReddit(state = 'reactjs', action) {
 function posts(state = {
   isFetching: false,
   didInvalidate: false,
-  items: []
+  items: [],
+  a: 'b'
 }, action) {
   switch (action.type) {
     case INVALIDATE_REDDIT:
@@ -55,7 +83,8 @@ function postsByReddit(state = { }, action) {
 
 const rootReducer = combineReducers({
   postsByReddit,
-  selectedReddit
+  selectedReddit,
+  position
 })
 
 export default rootReducer

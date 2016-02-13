@@ -9,6 +9,7 @@ export default function configureStore(initialState) {
     initialState,
     applyMiddleware(thunkMiddleware, createLogger())
   )
+  console.log(store);
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers

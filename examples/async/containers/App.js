@@ -1,8 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { selectReddit, fetchPostsIfNeeded, invalidateReddit } from '../actions'
+import { selectReddit, fetchPostsIfNeeded, invalidateReddit, updatePosition } from '../actions'
 import Picker from '../components/Picker'
 import Posts from '../components/Posts'
+import Stage from '../components/Stage'
 
 class App extends Component {
   constructor(props) {
@@ -13,7 +14,7 @@ class App extends Component {
 
   componentDidMount() {
     const { dispatch, selectedReddit } = this.props
-    dispatch(fetchPostsIfNeeded(selectedReddit))
+    this.props.dispatch(updatePosition())
   }
 
   componentWillReceiveProps(nextProps) {
@@ -38,31 +39,11 @@ class App extends Component {
   render() {
     const { selectedReddit, posts, isFetching, lastUpdated } = this.props
     const isEmpty = posts.length === 0
+
+    console.log(this.props);
     return (
       <div>
-        <Picker value={selectedReddit}
-                onChange={this.handleChange}
-                options={[ 'reactjs', 'frontend' ]} />
-        <p>
-          {lastUpdated &&
-            <span>
-              Last updated at {new Date(lastUpdated).toLocaleTimeString()}.
-              {' '}
-            </span>
-          }
-          {!isFetching &&
-            <a href="#"
-               onClick={this.handleRefreshClick}>
-              Refresh
-            </a>
-          }
-        </p>
-        {isEmpty
-          ? (isFetching ? <h2>Loading...</h2> : <h2>Empty.</h2>)
-          : <div style={{ opacity: isFetching ? 0.5 : 1 }}>
-              <Posts posts={posts} />
-            </div>
-        }
+        <Stage { ...this.props } />
       </div>
     )
   }
@@ -77,7 +58,7 @@ App.propTypes = {
 }
 
 function mapStateToProps(state) {
-  const { selectedReddit, postsByReddit } = state
+  const { selectedReddit, postsByReddit, position } = state
   const {
     isFetching,
     lastUpdated,
@@ -91,7 +72,8 @@ function mapStateToProps(state) {
     selectedReddit,
     posts,
     isFetching,
-    lastUpdated
+    lastUpdated,
+    position
   }
 }
 

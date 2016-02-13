@@ -5,6 +5,45 @@ export const RECEIVE_POSTS = 'RECEIVE_POSTS'
 export const SELECT_REDDIT = 'SELECT_REDDIT'
 export const INVALIDATE_REDDIT = 'INVALIDATE_REDDIT'
 
+export const UPDATE_POSITION = 'UPDATE_POSITION'
+
+
+export function updatePosition() {
+  return (dispatch, getState) => {
+    let pos = {
+      x: 0,
+      y: 0
+    };
+
+    let timer = setInterval(() => {
+      pos.x += 1;
+      pos.y += 2;
+      dispatch({
+        type: UPDATE_POSITION,
+        pos
+      });
+      if (pos.x > 10) {
+        clearInterval(timer);
+      }
+    }, 500);
+
+  };
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 export function selectReddit(reddit) {
   return {
     type: SELECT_REDDIT,
